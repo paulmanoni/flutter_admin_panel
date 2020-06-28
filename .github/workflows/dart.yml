@@ -19,7 +19,26 @@ jobs:
       with:
         flutter-version: '1.12.x' # you can use 1.12
         channel: 'beta'
+    - name: Upgrades flutter
+      run: flutter upgrade
+      working-directory: ./example
+    - name: Enable Web
+      run: flutter config --enable-web
+      working-directory: ./example
     - name: Install dependencies
-      run: flutter pub get
-    - name: Run tests
-      run: flutter pub run test
+      run: flutter packages get
+      working-directory: ./example
+    - name: Build Web
+      run: flutter build web
+      working-directory: ./example
+    - name: Deploy
+      run: |
+        cd example/build/web
+        git init
+        git config user.name  "CI"
+        git config user.email "flutter-ci@github.com"
+        git remote add secure-origin https://${{ secrets.ACCESS_TOKEN }}@github.com/[YOUR_USER_NAME]/[YOUR_REPO_NAME].git
+        git checkout -b gh-pages
+        git add .
+        git commit -m "Updated docs"
+        git push --force secure-origin gh-pages
