@@ -36,9 +36,9 @@ jobs:
     
     # Statically analyze the Dart code for any errors.
     - run: flutter analyze .
-    - name: Upgrades flutter
-      run: flutter upgrade
-      working-directory: ./example
+#     - name: Upgrades flutter
+#       run: flutter upgrade
+#       working-directory: ./example
     - name: Enable Web
       run: flutter config --enable-web
       working-directory: ./example
