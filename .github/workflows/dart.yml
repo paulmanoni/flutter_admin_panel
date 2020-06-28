@@ -16,6 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        flutter-version: '1.12.x' # you can use 1.12
+        channel: 'beta'
     - name: Install dependencies
       run: flutter pub get
     - name: Run tests
